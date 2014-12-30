@@ -51,14 +51,14 @@ boolean RollMode= false;
 float rOffset=0;
 float pOffset=0;
 //PITCH PID
-float KPP=3.4; 
-float KDP=100.7; 
-float KIP=0.2;
+float KPP=3.4;
+float KDP=100; 
+float KIP=0.01;
 
 //ROLL PID
 float KPR=3.4; 
-float KDR=100.7; 
-float KIR=0.2;
+float KDR=100; 
+float KIR=0.01;
 
 //YAW PID
 double KPY=0; 
@@ -120,13 +120,13 @@ void loop(void){
   if(r==8)
     KDR-=0.1;
   if(r==9)
-    KIP+=0.1;
+    KIP+=0.01;
   if(r==10)
-    KIP-=0.1;
+    KIP-=0.01;
   if(r==11)
-    KIR+=0.1;
+    KIR+=0.01;
   if(r==12)
-    KIR-=0.1;
+    KIR-=0.01;
   if(r==13)
     KPY+=0.1;
   if(r==14)
@@ -160,8 +160,8 @@ void loop(void){
   }
   if(r==22){ 
     SPEED=700;
-    KPP=3.4; KDP=100; KIP=0.2;
-    KPR=3.4; KDR=100; KIP=0.2;
+    KPP=3.4; KDP=100; KIP=0.1;
+    KPR=3.4; KDR=100; KIP=0.1;
     PitchMode=false;
     RollMode=false;
     rOffset=0;

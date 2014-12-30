@@ -109,13 +109,13 @@ void dmpDataReady() {
 
 //PITCH PID
 float KPP=3.4; 
-float KDP=100.7; 
-float KIP=0.2;
+float KDP=100; 
+float KIP=0.1;
 
 //ROLL PID
 float KPR=3.4; 
-float KDR=100.7; 
-float KIR=0.2;
+float KDR=100; 
+float KIR=0.1;
 
 //YAW PID
 float KPY=0; 
@@ -325,15 +325,16 @@ float lastErrorR=0;
 float errorP=0;
 float errorR=0;
 
+float IP=0;
 void regulateP(){
   errorP=getErrorP();
-  float P=0,D=0,I=0;
+  float P=0,D=0;
   P=KPP*errorP;
   D=KDP*(errorP-lastErrorP);
-  I=I+KIP*errorP;
+  IP=IP+KIP*errorP;
   
-  int speedPP=SPEED+(P+I+D);
-  int speedPM=SPEED-(P+I+D);
+  int speedPP=SPEED+(P+IP+D);
+  int speedPM=SPEED-(P+IP+D);
   
 
   
@@ -362,16 +363,16 @@ void regulateP(){
   Serial.print(" sPM: ");
   Serial.print(speedPM);
 }
-
+float IR=0;
 void regulateR(){
   errorR=getErrorR();
-  float P=0,D=0,I=0;
+  float P=0,D=0;
   P=KPR*errorR;
   D=KDR*(errorR-lastErrorR);
-  I=I+KIR*errorR;
+  IR=IR+KIR*errorR;
   
-  int  speedRP=SPEED+(P+I+D);
-  int  speedRM=SPEED-(P+I+D);
+  int  speedRP=SPEED+(P+IR+D);
+  int  speedRM=SPEED-(P+IR+D);
   
 
   
@@ -440,13 +441,13 @@ void receiveCommands(){
   if(r==8)
     KDR-=0.1;
   if(r==9)
-    KIP+=0.1;
+    KIP+=0.01;
   if(r==10)
-    KIP-=0.1;
+    KIP-=0.01;
   if(r==11)
-    KIR+=0.1;
+    KIR+=0.01;
   if(r==12)
-    KIR-=0.1;
+    KIR-=0.01;
   if(r==13)
     KPY+=0.1;
   if(r==14)
@@ -484,8 +485,9 @@ void receiveCommands(){
   }
   if(r==22){
     SPEED=MIN_SIGNAL;
-    KPP=3.4; KDP=100; KIP=0.2;
-    KPR=3.4; KDR=100; KIP=0.2;
+    KPP=3.4; KDP=100; KIP=0.1;
+    KPR=3.4; KDR=100; KIP=0.1;
+    IP=0; IR=0;
     PitchMode=false;
     RollMode=false;
     rOffset=0;
