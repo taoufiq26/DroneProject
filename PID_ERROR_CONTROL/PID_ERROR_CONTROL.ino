@@ -485,8 +485,8 @@ void receiveCommands(){
   }
   if(r==22){
     SPEED=MIN_SIGNAL;
-    KPP=3.4; KDP=100; KIP=0.1;
-    KPR=3.4; KDR=100; KIP=0.1;
+    KPP=3.4; KDP=100; KIP=0.01;
+    KPR=3.4; KDR=100; KIR=0.01;
     IP=0; IR=0;
     PitchMode=false;
     RollMode=false;

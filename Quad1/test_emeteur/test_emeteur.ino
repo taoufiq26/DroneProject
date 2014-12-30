@@ -160,8 +160,8 @@ void loop(void){
   }
   if(r==22){ 
     SPEED=700;
-    KPP=3.4; KDP=100; KIP=0.1;
-    KPR=3.4; KDR=100; KIP=0.1;
+    KPP=3.4; KDP=100; KIP=0.01;
+    KPR=3.4; KDR=100; KIR=0.01;
     PitchMode=false;
     RollMode=false;
     rOffset=0;
