@@ -55,6 +55,9 @@ MPU6050 mpu;
 
 #define ADD100 29
 #define SUB100 30
+
+#define CLR_ROFFSET 31
+#define CLR_POFFSET 32
 /* END COMMAND VALUES */
 
 #define MAX_SIGNAL 2000
@@ -433,13 +436,13 @@ void receiveCommands(){
   if(r==4)
     KPR-=0.1;
   if(r==5)
-    KDP+=0.1;
+    KDP+=1;
   if(r==6)
-    KDP-=0.1;
+    KDP-=1;
   if(r==7)
-    KDR+=0.1;
+    KDR+=1;
   if(r==8)
-    KDR-=0.1;
+    KDR-=1;
   if(r==9)
     KIP+=0.01;
   if(r==10)
@@ -453,9 +456,9 @@ void receiveCommands(){
   if(r==14)
     KPY-=0.1;
   if(r==15)
-    KDY+=0.1;
+    KDY+=1;
   if(r==16)
-    KDY-=0.1;
+    KDY-=1;
   if(r==17)
     KIY+=0.1;
   if(r==18)
@@ -500,16 +503,22 @@ void receiveCommands(){
     RollMode= !RollMode;
   }
   if(r==ADD_ROFFSET){
-    rOffset+=0.1;
+    rOffset+=0.5;
   }
   if(r==SUB_ROFFSET){
-    rOffset-=0.1;
+    rOffset-=0.5;
   }
   if(r==ADD_POFFSET){
-    pOffset+=0.1;
+    pOffset+=0.5;
   }
    if(r==SUB_POFFSET){
-    pOffset-=0.1;
+    pOffset-=0.5;
+  }
+  if(r==CLR_ROFFSET){
+    rOffset=0;
+  }
+  if(r==CLR_POFFSET){
+    pOffset=0;
   }
   
 }
