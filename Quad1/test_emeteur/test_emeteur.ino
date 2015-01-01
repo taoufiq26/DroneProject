@@ -44,6 +44,10 @@
 #define ADD100 29
 #define SUB100 30
 
+#define CLR_ROFFSET 31
+#define CLR_POFFSET 32
+
+
 // END COMMANDS //
 boolean PitchMode=false;
 boolean RollMode= false;
@@ -112,13 +116,13 @@ void loop(void){
   if(r==4)
     KPR-=0.1;
   if(r==5)
-    KDP+=0.1;
+    KDP+=1;
   if(r==6)
-    KDP-=0.1;
+    KDP-=1;
   if(r==7)
-    KDR+=0.1;
+    KDR+=1;
   if(r==8)
-    KDR-=0.1;
+    KDR-=1;
   if(r==9)
     KIP+=0.01;
   if(r==10)
@@ -174,16 +178,22 @@ void loop(void){
     RollMode= !RollMode;
   }
   if(r==ADD_ROFFSET){
-    rOffset+=0.1;
+    rOffset+=0.5;
   }
   if(r==SUB_ROFFSET){
-    rOffset-=0.1;
+    rOffset-=0.5;
   }
   if(r==ADD_POFFSET){
-    pOffset+=0.1;
+    pOffset+=0.5;
   }
    if(r==SUB_POFFSET){
-    pOffset-=0.1;
+    pOffset-=0.5;
+  }
+  if(r==CLR_POFFSET){
+    pOffset=0;
+  }
+  if(r==CLR_ROFFSET){
+    rOffset=0;
   }
  }
  
