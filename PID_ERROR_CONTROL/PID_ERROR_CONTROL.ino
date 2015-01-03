@@ -111,13 +111,13 @@ void dmpDataReady() {
 // ================================================================
 
 //PITCH PID
-float KPP=3.4; 
-float KDP=100; 
+float KPP=4.1; 
+float KDP=90; 
 float KIP=0.1;
 
 //ROLL PID
-float KPR=3.4; 
-float KDR=100; 
+float KPR=4.1; 
+float KDR=90; 
 float KIR=0.1;
 
 //YAW PID
@@ -125,7 +125,7 @@ float KPY=0;
 float KDY=0; 
 float KIY=0;
 
-float rOffset=0;
+float rOffset=-2;
 float pOffset=0;
 //MOTORS CURRENT SPEED
 int SPEED=MIN_SIGNAL;
@@ -481,9 +481,10 @@ void receiveCommands(){
     SPEED=MIN_SIGNAL; KPP=0; KDP=0; KIP=0;
     KPR=0; KDR=0; KIR=0;
     KPY=0; KDY=0; KIY=0;
+    IP=0;IR=0;
     PitchMode=false;
     RollMode=false;
-    rOffset=0;
+    rOffset=-2;
     pOffset=0;
   }
   if(r==22){
@@ -493,7 +494,7 @@ void receiveCommands(){
     IP=0; IR=0;
     PitchMode=false;
     RollMode=false;
-    rOffset=0;
+    rOffset=-2;
     pOffset=0;
   }
   if(r==23){
@@ -503,19 +504,19 @@ void receiveCommands(){
     RollMode= !RollMode;
   }
   if(r==ADD_ROFFSET){
-    rOffset+=0.5;
+    rOffset+=1.5;
   }
   if(r==SUB_ROFFSET){
-    rOffset-=0.5;
+    rOffset-=1.5;
   }
   if(r==ADD_POFFSET){
-    pOffset+=0.5;
+    pOffset+=1.5;
   }
    if(r==SUB_POFFSET){
-    pOffset-=0.5;
+    pOffset-=1.5;
   }
   if(r==CLR_ROFFSET){
-    rOffset=0;
+    rOffset=-2;
   }
   if(r==CLR_POFFSET){
     pOffset=0;
