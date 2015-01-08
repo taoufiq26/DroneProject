@@ -13,6 +13,8 @@
 MPU6050 mpu;
 #define OUTPUT_READABLE_YAWPITCHROLL
 
+#define OFFSETP 0
+#define OFFSETR 0
 /* START COMMANDS VALUES */
 #define ADD_KP_PITCH 1
 #define SUB_KP_PITCH 2
@@ -63,10 +65,10 @@ MPU6050 mpu;
 #define MAX_SIGNAL 2000
 #define MIN_SIGNAL 700
 #define LED_PIN 13 // (Arduino is 13, Teensy is 11, Teensy++ is 6)
-#define PP 5
-#define PM 4
-#define RP 6
-#define RM 7
+#define PP 4
+#define PM 5
+#define RP 7
+#define RM 6
 bool blinkState = false;
 
 boolean PitchMode=false;
@@ -125,8 +127,8 @@ float KPY=0;
 float KDY=0; 
 float KIY=0;
 
-float rOffset=-2;
-float pOffset=0;
+float rOffset=OFFSETR;
+float pOffset=OFFSETP;
 //MOTORS CURRENT SPEED
 int SPEED=MIN_SIGNAL;
 
@@ -152,7 +154,6 @@ void setup() {
     // initialize device
     Serial.println(F("Initializing I2C devices..."));
     mpu.initialize();
-
     // verify connection
     Serial.println(F("Testing device connections..."));
     Serial.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
@@ -484,8 +485,8 @@ void receiveCommands(){
     IP=0;IR=0;
     PitchMode=false;
     RollMode=false;
-    rOffset=-2;
-    pOffset=0;
+    rOffset=OFFSETR;
+    pOffset=OFFSETP;
   }
   if(r==22){
     SPEED=MIN_SIGNAL;
@@ -494,8 +495,8 @@ void receiveCommands(){
     IP=0; IR=0;
     PitchMode=false;
     RollMode=false;
-    rOffset=-2;
-    pOffset=0;
+    rOffset=OFFSETR;
+    pOffset=OFFSETP;
   }
   if(r==23){
     PitchMode= !PitchMode;
@@ -516,10 +517,10 @@ void receiveCommands(){
     pOffset-=1.5;
   }
   if(r==CLR_ROFFSET){
-    rOffset=-2;
+    rOffset=OFFSETR;
   }
   if(r==CLR_POFFSET){
-    pOffset=0;
+    pOffset=OFFSETP;
   }
   
 }
